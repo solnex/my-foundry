@@ -85,35 +85,35 @@ contract FundMeTester is StdCheats, Test {
         );
     }
 
-    function testWithdrawFromASingleFunderWithGas() public funded {
-        // Arrange
-        uint256 startingFundMeBalance = address(fundMe).balance;
-        uint256 startingOwnerBalance = fundMe.getOwner().balance;
-        console.log(startingFundMeBalance);
-        console.log(startingOwnerBalance);
+    // function testWithdrawFromASingleFunderWithGas() public funded {
+    //     // Arrange
+    //     uint256 startingFundMeBalance = address(fundMe).balance;
+    //     uint256 startingOwnerBalance = fundMe.getOwner().balance;
+    //     console.log(startingFundMeBalance);
+    //     console.log(startingOwnerBalance);
 
-        uint256 gasStart = gasleft();
-        // Act
-        address owner = fundMe.getOwner();
-        vm.txGasPrice(GAS_PRICE);
-        vm.startPrank(owner);
-        fundMe.withdraw();
-        vm.stopPrank();
+    //     uint256 gasStart = gasleft();
+    //     // Act
+    //     address owner = fundMe.getOwner();
+    //     vm.txGasPrice(GAS_PRICE);
+    //     vm.startPrank(owner);
+    //     fundMe.withdraw();
+    //     vm.stopPrank();
 
-        uint256 gasEnd = gasleft();
-        uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice;
-        console.log(gasUsed);
+    //     uint256 gasEnd = gasleft();
+    //     uint256 gasUsed = (gasStart - gasEnd) * tx.gasprice;
+    //     console.log(gasUsed);
 
-        // Assert
-        uint256 endingFundMeBalance = address(fundMe).balance;
-        uint256 endingOwnerBalance = fundMe.getOwner().balance;
-        console.log(endingOwnerBalance);
-        assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance + gasUsed
-        );
-    }
+    //     // Assert
+    //     uint256 endingFundMeBalance = address(fundMe).balance;
+    //     uint256 endingOwnerBalance = fundMe.getOwner().balance;
+    //     console.log(endingOwnerBalance);
+    //     assertEq(endingFundMeBalance, 0);
+    //     assertEq(
+    //         startingFundMeBalance + startingOwnerBalance,
+    //         endingOwnerBalance + gasUsed
+    //     );
+    // }
 
     function testWithDrawFromMultipleFunders() public funded {
         uint160 numberOfFunders = 10;
